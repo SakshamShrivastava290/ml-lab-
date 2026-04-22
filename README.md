@@ -20,12 +20,12 @@ pip install pandas numpy matplotlib seaborn scikit-learn
 | 2 | `preprocessing.py` | Missing values, encoding, scaling, split | Data Prep |
 | 3 | `linear_regression.py` | Simple Linear Regression (1 feature) | Regression |
 | 4 | `multi_linear_regression.py` | Multi-Linear Regression (all features) | Regression |
-| 5 | `decision_tree.py` | Decision Tree with entropy (ID3) | Classification |
+| 5 | `decision_tree.py` | Decision Tree (ID3 entropy) | Classification / Regression |
 | 6 | `logistic_regression.py` | Logistic Regression | Classification |
-| 7 | `knn.py` | K-Nearest Neighbors | Classification |
-| 8 | `svm.py` | Support Vector Machine (RBF kernel) | Classification |
-| 9 | `random_forest.py` | Random Forest Classifier | Classification |
-| 10 | `boosting.py` | AdaBoost Classifier | Classification |
+| 7 | `knn.py` | K-Nearest Neighbors | Classification / Regression |
+| 8 | `svm.py` | Support Vector Machine (RBF kernel) | Classification / Regression |
+| 9 | `random_forest.py` | Random Forest | Classification / Regression |
+| 10 | `boosting.py` | AdaBoost | Classification / Regression |
 | 11 | `kmeans.py` | K-Means Clustering | Clustering |
 | 12 | `pca.py` | Principal Component Analysis | Dim. Reduction |
 
@@ -97,14 +97,16 @@ Enter target column: Income
 ```bash
 python decision_tree.py
 ```
-**Prompts:** CSV path → Target column
+**Prompts:** CSV path → Target column → **Classification or Regression? (c/r)**
 
 **Example interaction:**
 ```
 Enter CSV path (default: data.csv): data.csv
 Enter target column: Purchased
+Classification or Regression? (c/r): c
 ```
-**Output:** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (classification):** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (regression):** MSE, MAE, R² Score + Actual vs Predicted plot
 
 ---
 
@@ -123,19 +125,21 @@ Enter target column: Purchased
 
 ---
 
-### 7. KNN Classification
+### 7. KNN
 ```bash
 python knn.py
 ```
-**Prompts:** CSV path → Target column → Number of neighbors K
+**Prompts:** CSV path → Target column → **Classification or Regression? (c/r)** → K
 
 **Example interaction:**
 ```
 Enter CSV path (default: data.csv): data.csv
 Enter target column: Purchased
+Classification or Regression? (c/r): c
 Enter K (number of neighbors, default 5): 5
 ```
-**Output:** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (classification):** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (regression):** MSE, MAE, R² Score + Actual vs Predicted plot
 
 ---
 
@@ -143,14 +147,16 @@ Enter K (number of neighbors, default 5): 5
 ```bash
 python svm.py
 ```
-**Prompts:** CSV path → Target column
+**Prompts:** CSV path → Target column → **Classification or Regression? (c/r)**
 
 **Example interaction:**
 ```
 Enter CSV path (default: data.csv): data.csv
-Enter target column: Purchased
+Enter target column: Income
+Classification or Regression? (c/r): r
 ```
-**Output:** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (classification):** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (regression):** MSE, MAE, R² Score + Actual vs Predicted plot
 
 ---
 
@@ -158,15 +164,17 @@ Enter target column: Purchased
 ```bash
 python random_forest.py
 ```
-**Prompts:** CSV path → Target column → Number of trees
+**Prompts:** CSV path → Target column → **Classification or Regression? (c/r)** → Number of trees
 
 **Example interaction:**
 ```
 Enter CSV path (default: data.csv): data.csv
 Enter target column: Purchased
+Classification or Regression? (c/r): c
 Number of trees (default 100): 100
 ```
-**Output:** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (classification):** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (regression):** MSE, MAE, R² Score + Actual vs Predicted plot
 
 ---
 
@@ -174,15 +182,17 @@ Number of trees (default 100): 100
 ```bash
 python boosting.py
 ```
-**Prompts:** CSV path → Target column → Number of estimators
+**Prompts:** CSV path → Target column → **Classification or Regression? (c/r)** → Number of estimators
 
 **Example interaction:**
 ```
 Enter CSV path (default: data.csv): data.csv
 Enter target column: Purchased
+Classification or Regression? (c/r): c
 Number of estimators (default 50): 50
 ```
-**Output:** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (classification):** Accuracy, Precision, Recall, F1 Score + Confusion Matrix heatmap
+**Output (regression):** MSE, MAE, R² Score + Actual vs Predicted plot
 
 ---
 
