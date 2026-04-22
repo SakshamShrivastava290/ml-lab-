@@ -2,20 +2,24 @@
 =============================================================
   K-NEAREST NEIGHBORS (KNN) — Standalone Lab Program
 =============================================================
-  Metrics: Accuracy, Precision, Recall, F1 Score
-  Visualization: Confusion Matrix Heatmap
-  Libraries: pandas, matplotlib, seaborn, sklearn
+  Supports: Classification AND Regression
+  Classification Metrics: Accuracy, Precision, Recall, F1, Confusion Matrix
+  Regression Metrics: MSE, MAE, R² Score, Actual vs Predicted plot
+  Libraries: pandas, numpy, matplotlib, seaborn, sklearn
   Usage: python knn.py
 =============================================================
 """
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.metrics import (accuracy_score, precision_score, recall_score,
+                             f1_score, confusion_matrix,
+                             mean_squared_error, r2_score, mean_absolute_error)
 
 
 def load_and_preprocess(path, target_col):
@@ -49,15 +53,29 @@ def evaluate_classification(y_true, y_pred, model_name):
     print(f"  Recall    : {recall_score(y_true, y_pred, average='weighted', zero_division=0):.4f}")
     print(f"  F1 Score  : {f1_score(y_true, y_pred, average='weighted', zero_division=0):.4f}")
     print(f"{'=' * 50}")
-
     cm = confusion_matrix(y_true, y_pred)
     plt.figure(figsize=(6, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
     plt.title(f'{model_name} — Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    plt.tight_layout()
-    plt.show()
+    plt.xlabel('Predicted'); plt.ylabel('Actual')
+    plt.tight_layout(); plt.show()
+
+
+def evaluate_regression(y_true, y_pred, model_name):
+    print(f"\n{'=' * 50}")
+    print(f"  📈 {model_name} — Regression Results")
+    print(f"{'=' * 50}")
+    print(f"  MSE  : {mean_squared_error(y_true, y_pred):.4f}")
+    print(f"  MAE  : {mean_absolute_error(y_true, y_pred):.4f}")
+    print(f"  R²   : {r2_score(y_true, y_pred):.4f}")
+    print(f"{'=' * 50}")
+    plt.figure(figsize=(7, 5))
+    plt.scatter(y_true, y_pred, color='steelblue', edgecolors='k', alpha=0.7)
+    mn, mx = min(y_true.min(), y_pred.min()), max(y_true.max(), y_pred.max())
+    plt.plot([mn, mx], [mn, mx], color='tomato', linewidth=2, linestyle='--', label='Ideal Fit')
+    plt.xlabel('Actual'); plt.ylabel('Predicted')
+    plt.title(f'{model_name} — Actual vs Predicted')
+    plt.legend(); plt.tight_layout(); plt.show()
 
 
 def run():
@@ -67,18 +85,25 @@ def run():
 
     path = input("Enter CSV path (default: data.csv): ").strip() or "data.csv"
     target = input("Enter target column: ").strip()
+
+    # Ask user: classification or regression
+    mode = input("Classification or Regression? (c/r): ").strip().lower()
+
     X_train, X_test, y_train, y_test = load_and_preprocess(path, target)
 
     k = input("Enter K (number of neighbors, default 5): ").strip()
     k = int(k) if k else 5
 
-    # Train
-    model = KNeighborsClassifier(n_neighbors=k)
-    model.fit(X_train, y_train)
-
-    # Predict & Evaluate
-    y_pred = model.predict(X_test)
-    evaluate_classification(y_test, y_pred, f"KNN (K={k})")
+    if mode == 'r':
+        model = KNeighborsRegressor(n_neighbors=k)
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+        evaluate_regression(y_test, y_pred, f"KNN Regressor (K={k})")
+    else:
+        model = KNeighborsClassifier(n_neighbors=k)
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+        evaluate_classification(y_test, y_pred, f"KNN Classifier (K={k})")
 
 
 if __name__ == "__main__":
