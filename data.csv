@@ -1,0 +1,31 @@
+Age,Income,Education,Gender,Hours_Per_Week,Experience,Purchased
+25,40000,Graduate,Male,40,2,No
+30,50000,Post-Graduate,Female,45,5,Yes
+35,60000,Graduate,Male,50,8,Yes
+22,25000,High School,Female,30,1,No
+45,80000,Post-Graduate,Male,55,15,Yes
+28,35000,Graduate,Female,38,3,No
+50,90000,Post-Graduate,Male,60,20,Yes
+32,55000,Graduate,Female,42,6,Yes
+40,70000,High School,Male,48,12,Yes
+23,30000,High School,Female,35,1,No
+38,65000,Graduate,Male,44,10,Yes
+27,32000,Graduate,Female,36,2,No
+48,85000,Post-Graduate,Male,58,18,Yes
+33,52000,Graduate,Female,41,7,Yes
+29,45000,High School,Male,39,4,No
+42,75000,Post-Graduate,Female,52,14,Yes
+36,58000,Graduate,Male,46,9,Yes
+24,28000,High School,Female,32,1,No
+46,82000,Post-Graduate,Male,56,17,Yes
+31,48000,Graduate,Female,40,5,No
+55,95000,Post-Graduate,Male,60,22,Yes
+26,34000,High School,Female,34,2,No
+39,68000,Graduate,Male,47,11,Yes
+34,54000,Graduate,Female,43,7,Yes
+21,22000,High School,Male,28,0,No
+44,78000,Post-Graduate,Female,54,16,Yes
+37,62000,Graduate,Male,45,10,Yes
+20,20000,High School,Female,25,0,No
+43,76000,Post-Graduate,Male,53,15,Yes
+41,72000,Graduate,Female,50,13,Yes
