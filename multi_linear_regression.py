@@ -71,6 +71,7 @@ def run():
     print(f"  📊 REGRESSION RESULTS")
     print(f"{'=' * 50}")
     print(f"  MSE  : {mean_squared_error(y_test, y_pred):.4f}")
+    print(f"  RMSE : {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")
     print(f"  MAE  : {mean_absolute_error(y_test, y_pred):.4f}")
     print(f"  R²   : {r2_score(y_test, y_pred):.4f}")
     print(f"{'=' * 50}")

@@ -58,9 +58,11 @@ def evaluate_classification(y_true, y_pred, name):
 
 def evaluate_regression(y_true, y_pred, name):
     print(f"\n{'='*50}\n  📈 {name} — Regression Results\n{'='*50}")
-    print(f"  MSE : {mean_squared_error(y_true, y_pred):.4f}")
-    print(f"  MAE : {mean_absolute_error(y_true, y_pred):.4f}")
-    print(f"  R²  : {r2_score(y_true, y_pred):.4f}")
+    mse = mean_squared_error(y_true, y_pred)
+    print(f"  MSE  : {mse:.4f}")
+    print(f"  RMSE : {np.sqrt(mse):.4f}")
+    print(f"  MAE  : {mean_absolute_error(y_true, y_pred):.4f}")
+    print(f"  R²   : {r2_score(y_true, y_pred):.4f}")
     plt.figure(figsize=(7, 5))
     plt.scatter(y_true, y_pred, color='steelblue', edgecolors='k', alpha=0.7)
     mn, mx = min(y_true.min(), y_pred.min()), max(y_true.max(), y_pred.max())

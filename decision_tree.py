@@ -66,6 +66,7 @@ def evaluate_regression(y_true, y_pred, model_name):
     print(f"  📈 {model_name} — Regression Results")
     print(f"{'=' * 50}")
     print(f"  MSE  : {mean_squared_error(y_true, y_pred):.4f}")
+    print(f"  RMSE : {np.sqrt(mean_squared_error(y_true, y_pred)):.4f}")
     print(f"  MAE  : {mean_absolute_error(y_true, y_pred):.4f}")
     print(f"  R²   : {r2_score(y_true, y_pred):.4f}")
     print(f"{'=' * 50}")
