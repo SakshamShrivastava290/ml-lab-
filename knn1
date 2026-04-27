@@ -1,0 +1,84 @@
+import pandas as pd
+from google.colab import files
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, f1_score
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+# -------------------------------
+# STEP 1: Upload Dataset (Colab)
+# -------------------------------
+uploaded = files.upload()
+file_path = list(uploaded.keys())[0]
+df = pd.read_csv(file_path)
+
+print("\nDataset Preview:\n", df.head())
+
+# -------------------------------
+# STEP 2: Select Target Column
+# -------------------------------
+target_column = input("\nEnter the target column name: ")
+
+# -------------------------------
+# STEP 3: Handle Missing Values
+# -------------------------------
+df = df.dropna()
+
+# -------------------------------
+# STEP 4: Encode Categorical Data
+# -------------------------------
+le = LabelEncoder()
+for col in df.columns:
+    if df[col].dtype == 'object':
+        df[col] = le.fit_transform(df[col])
+
+# -------------------------------
+# STEP 5: Split Features & Target
+# -------------------------------
+X = df.drop(columns=[target_column])
+y = df[target_column]
+
+# -------------------------------
+# STEP 6: Train-Test Split
+# -------------------------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# -------------------------------
+# STEP 7: Feature Scaling (VERY IMPORTANT for KNN)
+# -------------------------------
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# -------------------------------
+# STEP 8: Train KNN Model
+# -------------------------------
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(X_train, y_train)
+
+# -------------------------------
+# STEP 9: Predictions
+# -------------------------------
+y_pred = model.predict(X_test)
+
+# -------------------------------
+# STEP 10: Evaluation Metrics
+# -------------------------------
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+# -------------------------------
+# STEP 11: Output Results
+# -------------------------------
+print("\n--- KNN Evaluation ---")
+print("Accuracy:", accuracy)
+print("\nConfusion Matrix:\n", conf_matrix)
+print("\nPrecision:", precision)
+print("Recall:", recall)
+print("F1 Score:", f1)
